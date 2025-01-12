@@ -9,7 +9,7 @@ const Tab: React.FC<TabProps> = ({ tabContent, onReturn }) => {
   };
 
   return (
-    <div className="w-full bg-white shadow-md border-b-2">
+    <div className="w-full shadow-md border-b-2">
       <ul className="flex w-full">
         {tabContent.map((content: IContent, index: number) => (
           <TabItem key={index} onClick={onTabClick} content={content} />

@@ -1,10 +1,27 @@
-import AnimeRegistEntry from "../animeRegist/animeRegistEntry";
-import AnimeCurrentEntry from "../animeCurrent/animeCurrentEntry";
-import AnimePastEntry from "../animePast/animePastEntry";
-import AnimeWatchedEntry from "../animeWatched/animeWatchedEntry";
+import { useState,useEffect } from 'react';
+import AnimeRegistEntry from '../animeRegist/animeRegistEntry';
+import AnimeCurrentEntry from '../animeCurrent/animeCurrentEntry';
+import AnimePastEntry from '../animePast/animePastEntry';
+import AnimeWatchedEntry from '../animeWatched/animeWatchedEntry';
+import TitleEntry from '../title/titleEntry';
 
 const Content = ({ content }: { content: string }) => {
-    switch(content){
+
+    const [Content,setContent] = useState<string>(content);
+
+    const contentChange = ( contentName: string ) => {
+        setContent(contentName);
+    }
+
+    useEffect(()=>
+        setContent(content)
+    ,[content])
+
+    switch(Content){
+        case 'title':
+            return (
+                <TitleEntry onClick={contentChange}></TitleEntry>
+            );
         case 'regist':
             return (
                 <AnimeRegistEntry></AnimeRegistEntry>
