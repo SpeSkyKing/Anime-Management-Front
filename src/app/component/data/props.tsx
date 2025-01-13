@@ -13,3 +13,7 @@ export interface TabItemProps{
 export interface TitleEntryProps{
     onClick: (content:string) => void,
 }
+
+export interface loginProps{
+    onLogin: (token:string) => void,
+}
