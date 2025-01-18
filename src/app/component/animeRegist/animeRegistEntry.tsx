@@ -9,7 +9,7 @@ const AnimeRegistEntry = () => {
     speed: "0",
     seasonType: "0",
     ReleaseDate: "",
-    deliveryWeekday: "0",
+    deliveryWeekday: "1",
     deliveryTime: "",
   });
 
