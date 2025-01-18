@@ -38,9 +38,7 @@ export default function Home() {
       <Tab tabContent={tabContent} onReturn={onTabClick} />
     </div>
     <div className="content-container flex justify-center items-center h-full bg-gradient-to-br from-green-400 via-teal-300 to-blue-500 text-white p-6 rounded-t-lg shadow-lg">
-      <div className="flex justify-center items-center p-8 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
         <Content content={selectContent.content} />
-      </div>
     </div>
   </div>
 
