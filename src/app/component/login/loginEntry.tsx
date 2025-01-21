@@ -1,7 +1,7 @@
-import { loginProps } from "../data/props";
+import { LoginProps } from "../data/props";
 import { useState } from 'react';
 
-const LoginEntry: React.FC<loginProps> = ({ onLogin }) => {
+const LoginEntry: React.FC<LoginProps> = ({ onLogin }) => {
   const [onRegist, setOnRegist] = useState(false);
   const [loginUserName, setLoginUserName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");

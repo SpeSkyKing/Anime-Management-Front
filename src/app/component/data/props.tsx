@@ -1,4 +1,4 @@
-import {IContent} from './interface';
+import {IAnime, IContent,ICurrentAnime} from './interface';
 
 export interface TabProps{
     onReturn: (content:IContent) => void,
@@ -14,6 +14,11 @@ export interface TitleEntryProps{
     onClick: (content:string) => void,
 }
 
-export interface loginProps{
+export interface LoginProps{
     onLogin: (token:string) => void,
+}
+
+export interface AnimeCurrentListItemProps{
+    currentAnime: ICurrentAnime,
+    onclick : (ICurrentAnime:ICurrentAnime) => void
 }
