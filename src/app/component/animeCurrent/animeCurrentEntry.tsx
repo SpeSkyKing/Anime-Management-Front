@@ -62,8 +62,33 @@ const AnimeCurrentEntry = () => {
     }
   }
 
-  const handleEpisodeUp = (ICurrentAnime:ICurrentAnime) =>{
-    currentAnimeEpisodeUp(ICurrentAnime.anime.anime_id);
+  const currentAnimeFinishWatching = async (animeId : number) => {
+    try {
+      const response = await fetch('http://localhost:8000/anime/current/finishWatching', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ animeId }),
+      });
+      if(response.ok){
+        getCurrentAnime();
+      } else {
+        alert("視聴終了に失敗しました。");
+      }
+    } catch (error) {
+      console.error("エラーが発生しました:", error);
+      alert("エラーが発生しました。");
+    }
+  }
+
+  const handleEpisodeUp = (iCurrentAnime:ICurrentAnime) =>{
+    currentAnimeEpisodeUp(iCurrentAnime.anime.anime_id);
+  }
+
+  const handleFinishWatching = async (iCurrentAnime:ICurrentAnime) => {
+    currentAnimeFinishWatching(iCurrentAnime.anime.anime_id);
   }
 
   useEffect(() => {
@@ -83,11 +108,12 @@ const AnimeCurrentEntry = () => {
               <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">推しキャラ</th>
               <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴話数</th>
               <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">カウントアップ</th>
+              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴終了</th>
             </tr>
           </thead>
           <tbody>
             {currentAnime.map((currentAnimedata,index) => (
-             <AnimeCurrentListItem key={index} currentAnime={currentAnimedata} onclick={handleEpisodeUp}/>
+             <AnimeCurrentListItem key={index} currentAnime={currentAnimedata} onclick={handleEpisodeUp} onFinish={handleFinishWatching}/>
             ))}
           </tbody>
         </table>

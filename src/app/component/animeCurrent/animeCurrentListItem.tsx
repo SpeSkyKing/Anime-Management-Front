@@ -1,11 +1,15 @@
 import { AnimeCurrentListItemProps } from "../data/props";
-export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({currentAnime,onclick}) => {
+export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({currentAnime,onclick,onFinish}) => {
     const year = (currentAnime.releaseDate).getFullYear();
-    const month = (currentAnime.releaseDate.getMonth() + 1).toString().padStart(2, '0'); // 月は 0 から始まるため、1を加算
+    const month = (currentAnime.releaseDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentAnime.releaseDate.getDate().toString().padStart(2, '0');
 
     const onEpisodeUp = () => {
         onclick(currentAnime);
+    }
+
+    const onFinishAnime = () => {
+        onFinish(currentAnime);
     }
 
     const releaseDate = `${year}-${month}-${day}`;
@@ -48,6 +52,13 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
                     onClick={onEpisodeUp}>
                 視聴
+                </button>
+            </td>
+            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">
+                <button 
+                    className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+                    onClick={onFinishAnime}>
+                視聴終了
                 </button>
             </td>
         </tr>

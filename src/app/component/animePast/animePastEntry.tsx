@@ -56,9 +56,34 @@ const AnimePastEntry = () => {
         alert("エラーが発生しました。");
       }
     }
+
+    const pastAnimeFinishWatching = async (animeId : number) => {
+      try {
+        const response = await fetch('http://localhost:8000/anime/past/finishWatching', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          body: JSON.stringify({ animeId }),
+        });
+        if(response.ok){
+          getPastAnime();
+        } else {
+          alert("視聴終了に失敗しました。");
+        }
+      } catch (error) {
+        console.error("エラーが発生しました:", error);
+        alert("エラーが発生しました。");
+      }
+    }
   
     const handleEpisodeUp = (iPastAnime:IPastAnime) =>{
       pastAnimeEpisodeUp(iPastAnime.anime.anime_id);
+    }
+
+    const handleFinishWatching = async (iPastAnime:IPastAnime) => {
+      pastAnimeFinishWatching(iPastAnime.anime.anime_id);
     }
   
     useEffect(() => {
@@ -75,11 +100,12 @@ const AnimePastEntry = () => {
               <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">推しキャラ</th>
               <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">視聴話数</th>
               <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">カウント</th>
+              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴終了</th>
             </tr>
           </thead>
           <tbody>
           {pastAnime.map((pastAnimedata,index) => (
-             <AnimePastListItem key={index} pastAnime={pastAnimedata} onclick={handleEpisodeUp}/>
+             <AnimePastListItem key={index} pastAnime={pastAnimedata} onclick={handleEpisodeUp} onFinish={handleFinishWatching}/>
             ))}
           </tbody>
         </table>

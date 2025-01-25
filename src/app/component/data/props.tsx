@@ -20,10 +20,12 @@ export interface LoginProps{
 
 export interface AnimeCurrentListItemProps{
     currentAnime: ICurrentAnime,
-    onclick : (currentAnime:ICurrentAnime) => void
+    onclick : (currentAnime:ICurrentAnime) => void,
+    onFinish : (currentAnime:ICurrentAnime) => void
 }
 
 export interface AnimePastListItemProps{
     pastAnime: IPastAnime,
-    onclick : (pastAnime:IPastAnime) => void
+    onclick : (pastAnime:IPastAnime) => void,
+    onFinish : (pasttAnime:IPastAnime) => void
 }
