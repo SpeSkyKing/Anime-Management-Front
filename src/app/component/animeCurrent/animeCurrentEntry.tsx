@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import { ICurrentAnime } from "../data/interface";
-import { AnimeCurrentListItem } from "./AnimeCurrentListItem";
+import { AnimeCurrentListItem } from "./animeCurrentListItem";
 const AnimeCurrentEntry = () => {
 
   const token = localStorage.getItem('jwtToken'); 
