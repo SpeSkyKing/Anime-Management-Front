@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 import AnimeRegistEntry from '../animeRegist/animeRegistEntry';
 import AnimeCurrentEntry from '../animeCurrent/animeCurrentEntry';
 import AnimePastEntry from '../animePast/animePastEntry';
-import AnimeWatchedEntry from '../animeWatched/animeWatchedEntry';
+import AnimeViewedEntry from '../animeViewed/animeViewedEntry';
 import TitleEntry from '../title/titleEntry';
 
 const Content = ({ content }: { content: string }) => {
@@ -34,9 +34,9 @@ const Content = ({ content }: { content: string }) => {
             return (
                 <AnimePastEntry></AnimePastEntry>
             );
-        case 'watched':
+        case 'viewed':
             return (
-                <AnimeWatchedEntry></AnimeWatchedEntry>
+                <AnimeViewedEntry></AnimeViewedEntry>
             );
     }
   }

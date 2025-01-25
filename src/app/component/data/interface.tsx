@@ -26,7 +26,7 @@ export interface IPastAnime{
     anime:IAnime
 }
 
-export interface IViewdAnime{
+export interface IViewedAnime{
     viewed_end_date:Date,
     anime:IAnime
 }

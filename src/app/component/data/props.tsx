@@ -1,4 +1,4 @@
-import {IAnime, IContent,ICurrentAnime,IPastAnime} from './interface';
+import {IContent,ICurrentAnime,IPastAnime,IViewedAnime} from './interface';
 
 export interface TabProps{
     onReturn: (content:IContent) => void,
@@ -28,4 +28,9 @@ export interface AnimePastListItemProps{
     pastAnime: IPastAnime,
     onclick : (pastAnime:IPastAnime) => void,
     onFinish : (pasttAnime:IPastAnime) => void
+}
+
+export interface AnimeViewedListItemProps{
+    viewedAnime: IViewedAnime,
+    onReturn : (viewedAnime:IViewedAnime) => void,
 }
