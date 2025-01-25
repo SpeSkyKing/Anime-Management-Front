@@ -20,3 +20,8 @@ export interface ICurrentAnime{
     delivery_time:string,
     anime:IAnime,
 }
+
+export interface IPastAnime{
+    watching_start_date:Date,
+    anime:IAnime
+}

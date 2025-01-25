@@ -1,4 +1,69 @@
+import { useState,useEffect } from "react";
+import { IPastAnime } from "../data/interface";
+import { AnimePastListItem } from "./animePastListItem";
 const AnimePastEntry = () => {
+  const token = localStorage.getItem('jwtToken'); 
+    const [pastAnime,setPastAnime] = useState<IPastAnime[]>([]);
+  
+    const getPastAnime = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/anime/past/list', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+        if(response.ok){
+          const responseJson = await response.json();
+          const data :IPastAnime[] = responseJson.data.map((item: any) => ({
+            watching_start_date: new Date(item.watching_start_date),
+            anime: {
+              anime_id: item.anime_id,
+              anime_name: item.anime_name,
+              episode: item.episode,
+              favoritecharacter: item.favoritecharacter,
+              speed: item.speed,
+            },
+          }));
+          setPastAnime(data);
+        } else {
+          alert("データ取得に失敗しました。");
+        }
+      } catch (error) {
+        console.error("エラーが発生しました:", error);
+        alert("エラーが発生しました。");
+      }
+    }
+  
+    const pastAnimeEpisodeUp = async (animeId : number) => {
+      try {
+        const response = await fetch('http://localhost:8000/anime/past/episodeUp', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          body: JSON.stringify({ animeId }),
+        });
+        if(response.ok){
+          getPastAnime();
+        } else {
+          alert("話数カウントに失敗しました。");
+        }
+      } catch (error) {
+        console.error("エラーが発生しました:", error);
+        alert("エラーが発生しました。");
+      }
+    }
+  
+    const handleEpisodeUp = (iPastAnime:IPastAnime) =>{
+      pastAnimeEpisodeUp(iPastAnime.anime.anime_id);
+    }
+  
+    useEffect(() => {
+      getPastAnime();
+    },[])
   return (
     <div className="flex justify-center p-8 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
       <div className="h-full w-full overflow-x-auto flex justify-start">
@@ -13,13 +78,9 @@ const AnimePastEntry = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white hover:bg-gray-100">
-              <td className="!text-black px-4 py-2 text-center">アニメA</td>
-              <td className="!text-black px-4 py-2 text-center">2025-01-01</td>
-              <td className="!text-black px-4 py-2 text-center">スペシャルウィーク</td>
-              <td className="!text-black px-4 py-2 text-center">3話</td>
-              <td className="!text-black px-4 py-2 text-center">視聴</td>
-            </tr>
+          {pastAnime.map((pastAnimedata,index) => (
+             <AnimePastListItem key={index} pastAnime={pastAnimedata} onclick={handleEpisodeUp}/>
+            ))}
           </tbody>
         </table>
       </div>
