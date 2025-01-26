@@ -6,6 +6,20 @@ const AnimeCurrentEntry = () => {
   const token = localStorage.getItem('jwtToken'); 
   const [currentAnime,SetCurrentAnime] = useState<ICurrentAnime[]>([]);
 
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const dayOfWeek = currentDateTime.toLocaleString('ja-JP', { weekday: 'long' });
+  const dateString = currentDateTime.toLocaleDateString('ja-JP');
+  const timeString = currentDateTime.toLocaleTimeString('ja-JP');
+
   const getCurrentAnime = async () => {
     try {
       const response = await fetch('http://localhost:8000/anime/current/list', {
@@ -96,7 +110,12 @@ const AnimeCurrentEntry = () => {
   },[])
 
   return (
-    <div className="flex justify-center p-8 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
+    <div className="block justify-center p-8 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
+      <div className="flex flex-row items-center justify-center space-x-8 my-4">
+        <div className="text-2xl text-gray-800 font-semibold mt-4">{dayOfWeek}</div>
+        <div className="text-2xl text-indigo-600 font-bold mt-4">{dateString}</div>
+        <div className="text-2xl text-gray-600 mt-4">{timeString}</div>
+      </div>
       <div className="h-full w-full overflow-x-auto flex justify-start">
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white z-10">
@@ -112,8 +131,8 @@ const AnimeCurrentEntry = () => {
             </tr>
           </thead>
           <tbody>
-            {currentAnime.map((currentAnimedata,index) => (
-             <AnimeCurrentListItem key={index} currentAnime={currentAnimedata} onclick={handleEpisodeUp} onFinish={handleFinishWatching}/>
+            {currentAnime.map((currentAnimedata, index) => (
+              <AnimeCurrentListItem key={index} currentAnime={currentAnimedata} onclick={handleEpisodeUp} onFinish={handleFinishWatching}/>
             ))}
           </tbody>
         </table>
