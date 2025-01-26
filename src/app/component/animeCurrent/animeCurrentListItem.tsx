@@ -1,19 +1,13 @@
+import { IAnime,ICurrentAnime } from "../data/interface";
 import { AnimeCurrentListItemProps } from "../data/props";
 export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({currentAnime,onclick,onFinish}) => {
     const year = (currentAnime.releaseDate).getFullYear();
     const month = (currentAnime.releaseDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentAnime.releaseDate.getDate().toString().padStart(2, '0');
 
-    const onEpisodeUp = () => {
-        onclick(currentAnime);
-    }
-
-    const onFinishAnime = () => {
-        onFinish(currentAnime);
-    }
-
     const releaseDate = `${year}-${month}-${day}`;
 
+    const currentDate = new Date();
 
     const colorMap = {
         Monday: "bg-blue-500", 
@@ -59,10 +53,40 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
         break;
     }
 
+    const onEpisodeUp = () => {
+        onclick(currentAnime);
+    }
+
+    const onFinishAnime = () => {
+        onFinish(currentAnime);
+    }
+
+    const getExpectedEpisodes = (delivery:string) => {
+        const releaseDateTime = new Date(`${releaseDate}T${delivery}`);
+        const diffInMilliseconds = currentDate.getTime() - releaseDateTime.getTime();
+        const diffInWeeks = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24 * 7));
+
+        return diffInWeeks + 1;
+    };
+
+    const getRowBgColor = (currentAnime:ICurrentAnime) => {
+        const { releaseDate:release, delivery_time:delivery, anime:animeInfo } = currentAnime;
+        const expectedEpisodes = getExpectedEpisodes(delivery);
+        const hasFinishedWatching = animeInfo.episode >= expectedEpisodes;
+
+        if (expectedEpisodes > animeInfo.episode) {
+            return 'bg-yellow-300';
+        }else{
+            return '';
+        }
+    };
+
+    const bgColor = getRowBgColor(currentAnime);
+
     const animeName = currentAnime.anime.anime_name.length > 10 ? currentAnime.anime.anime_name.slice(0,10) + '…': currentAnime.anime.anime_name;
-     
+
     return (
-        <tr className="bg-white hover:bg-gray-100">
+        <tr className={`bg-white hover:bg-gray-100 ${bgColor}`}>
             <td className="!text-black px-4 py-2 text-left text-[vw] whitespace-nowrap">{animeName}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{releaseDate}</td>
             <td className={`!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap ${stateBgColorClass}`}>{deliveryWeeday}</td>
