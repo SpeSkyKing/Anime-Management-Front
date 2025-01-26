@@ -38,10 +38,12 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
             deliveryWeeday = "日曜日";
         break;
     }
+
+    const animeName = currentAnime.anime.anime_name.length > 10 ? currentAnime.anime.anime_name.slice(0,10) + '…': currentAnime.anime.anime_name;
      
     return (
         <tr className="bg-white hover:bg-gray-100">
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.anime_name}</td>
+            <td className="!text-black px-4 py-2 text-left text-[vw] whitespace-nowrap">{animeName}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{releaseDate}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{deliveryWeeday}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.delivery_time}</td>
