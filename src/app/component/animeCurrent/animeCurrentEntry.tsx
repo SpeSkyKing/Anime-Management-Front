@@ -27,7 +27,7 @@ const AnimeCurrentEntry = () => {
             anime_id: item.anime_id,
             anime_name: item.anime_name,
             episode: item.episode,
-            favoritecharacter: item.favoritecharacter,
+            favoriteCharacter: item.favoritecharacter,
             speed: item.speed,
           },
         }));
