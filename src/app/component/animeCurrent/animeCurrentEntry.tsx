@@ -101,14 +101,14 @@ const AnimeCurrentEntry = () => {
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white z-10">
             <tr className="bg-gray-100">
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">アニメ名</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信開始日</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信曜日</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信時間</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">推しキャラ</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴話数</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">カウントアップ</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴終了</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">アニメ名</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信開始日</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">曜日</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信時間</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">推しキャラ</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴話数</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">カウント</th>
+              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">終了</th>
             </tr>
           </thead>
           <tbody>

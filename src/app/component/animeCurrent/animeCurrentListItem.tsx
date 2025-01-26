@@ -14,28 +14,48 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
 
     const releaseDate = `${year}-${month}-${day}`;
 
+
+    const colorMap = {
+        Monday: "bg-blue-500", 
+        Tuesday: "bg-green-400",
+        Wednesday: "bg-pink-300",
+        Thursday: "bg-orange-400",
+        Friday: "bg-yellow-300", 
+        Saturday: "bg-red-500", 
+        Sunday: "bg-teal-300",
+      };
+
+
     let deliveryWeeday = "";
+    let stateBgColorClass = "";
     switch(currentAnime.delivery_weekday){
         case "1":
-            deliveryWeeday = "月曜日";
+            deliveryWeeday = "月";
+            stateBgColorClass = colorMap['Monday']; 
         break;
         case "2":
-            deliveryWeeday = "火曜日";
+            deliveryWeeday = "火";
+            stateBgColorClass = colorMap['Tuesday']; 
         break;
         case "3":
-            deliveryWeeday = "水曜日";
+            deliveryWeeday = "水";
+            stateBgColorClass = colorMap['Wednesday']; 
         break;
         case "4":
-            deliveryWeeday = "木曜日";
+            deliveryWeeday = "木";
+            stateBgColorClass = colorMap['Thursday']; 
         break;
         case "5":
-            deliveryWeeday = "金曜日";
+            deliveryWeeday = "金";
+            stateBgColorClass = colorMap['Friday']; 
         break;
         case "6":
-            deliveryWeeday = "土曜日";
+            deliveryWeeday = "土";
+            stateBgColorClass = colorMap['Saturday']; 
         break;
         case "7":
-            deliveryWeeday = "日曜日";
+            deliveryWeeday = "日";
+            stateBgColorClass = colorMap['Sunday']; 
         break;
     }
 
@@ -45,7 +65,7 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
         <tr className="bg-white hover:bg-gray-100">
             <td className="!text-black px-4 py-2 text-left text-[vw] whitespace-nowrap">{animeName}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{releaseDate}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{deliveryWeeday}</td>
+            <td className={`!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap ${stateBgColorClass}`}>{deliveryWeeday}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.delivery_time}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.favoriteCharacter}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.episode}話</td>
@@ -60,7 +80,7 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
                 <button 
                     className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
                     onClick={onFinishAnime}>
-                視聴終了
+                終了
                 </button>
             </td>
         </tr>
