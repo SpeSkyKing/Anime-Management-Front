@@ -15,33 +15,53 @@ const LoginEntry: React.FC<LoginProps> = ({ onLogin }) => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8000/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName: loginUserName,
-          password: loginPassword,
-        }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.message || "ログインしました。");
-        localStorage.setItem("jwtToken", data.token);
-        onLogin(data.token);
-      } else {
-        alert(data.message || "ログインに失敗しました。");
-      }
-    } catch (error) {
-      console.error("Login Error:", error);
-      alert("サーバーエラーが発生しました。");
+    if(!loginUserName){
+      alert("ユーザー名を入力してください");
+      return;
     }
+    if(!loginPassword){
+      alert("パスワードを入力してください");
+      return;
+    }
+      try {
+        const response = await fetch("http://localhost:8000/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userName: loginUserName,
+            password: loginPassword,
+          }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message || "ログインしました。");
+          localStorage.setItem("jwtToken", data.token);
+          onLogin(data.token);
+        } else {
+          alert(data.message || "ログインに失敗しました。");
+        }
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      }
   };
 
   const handleRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
+    if(!registUserName){
+      alert("ユーザー名を入力してください");
+      return;
+    }
+    if(!registPassword){
+      alert("パスワードを入力してください");
+      return;
+    }
+    if(!registPasswordAgain){
+      alert("パスワード確認を入力してください");
+      return;
+    }
     if (registPassword !== registPasswordAgain) {
       alert("パスワードが一致しません。");
       return;
@@ -60,7 +80,7 @@ const LoginEntry: React.FC<LoginProps> = ({ onLogin }) => {
       const data = await response.json();
       if (response.ok) {
         alert("登録に成功しました。");
-        turnClick(); // Switch to login view
+        turnClick();
       } else {
         alert(data.message || "登録に失敗しました。");
       }
