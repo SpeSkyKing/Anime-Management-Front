@@ -33,7 +33,7 @@ const AnimeRegistEntry = () => {
         },
         body: JSON.stringify(formData),
       });
-
+      const data = await response.json();
       if (response.ok) {
         alert("登録が成功しました！");
         setIsCurrentSeason(false);
@@ -47,11 +47,11 @@ const AnimeRegistEntry = () => {
           deliveryTime: "",
         });
       } else {
-        alert("登録に失敗しました。");
+        alert(data.message || "登録に失敗しました。");
       }
-    } catch (error) {
-      console.error("エラーが発生しました:", error);
-      alert("エラーが発生しました。");
+    }catch (error) {
+      console.log(error);
+      alert(error);
     }
   };
 
